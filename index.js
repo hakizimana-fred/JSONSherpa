@@ -10,10 +10,38 @@ function main() {
 }
 
 function readJsonFiles() {
-  const jsonPath = path.join(__dirname, "tests/step1/invalid.json");
-  const jsonContent = readFileSync(jsonPath).toString();
-  if (!jsonContent) {
-    console.log("Invalid content");
+  // read step1 folder content
+  const invalidJsonOne = path.join(__dirname, "tests/step1/invalid.json");
+  const invalidJsonOneContent = readFileSync(invalidJsonOne).toString();
+
+  const invalidJsonTwo = path.join(__dirname, "tests/step2/invalid.json");
+  const invalidJsonTwoContent = readFileSync(invalidJsonTwo).toString();
+
+  if (!invalidJsonOneContent) {
+    console.log("Invalid content", invalidJsonOneContent);
+  }
+
+  try {
+    const output = readValidJson("tests/step2/valid.json");
+    console.log(output);
+  } catch (e) {
+    console.log(e.message);
+  }
+
+  try {
+    JSON.parse(invalidJsonTwoContent);
+    console.log("valid JSON");
+  } catch (e) {
+    console.log("Invalid JSON", invalidJsonTwo, e.message);
+  }
+}
+
+function readValidJson(path) {
+  const jsonFile = readFileSync(path).toString();
+  if (JSON.parse(jsonFile)) {
+    return "Valid JSON " + jsonFile;
+  } else {
+    throw new Error("Invalid JSON", jsonFile);
   }
 }
 
