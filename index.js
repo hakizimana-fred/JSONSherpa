@@ -37,7 +37,7 @@ function readJsonFiles() {
 }
 
 function readJsonContent(filePath) {
-  const jsonFile = readFileSync(path.joinj(__dirname, filePath)).toString();
+  const jsonFile = readFileSync(path.join(__dirname, filePath)).toString();
   return jsonFile;
 }
 
