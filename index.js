@@ -36,8 +36,13 @@ function readJsonFiles() {
   }
 }
 
+function readJsonContent(filePath) {
+  const jsonFile = readFileSync(path.joinj(__dirname, filePath)).toString();
+  return jsonFile;
+}
+
 function readValidJson(path) {
-  const jsonFile = readFileSync(path).toString();
+  const jsonFile = readJsonContent(path);
   if (JSON.parse(jsonFile)) {
     return "Valid JSON " + jsonFile;
   } else {
